@@ -18,11 +18,11 @@ namespace Labb3
                 foreach (var course in courses)
                 {
                     var gradeSum = dbContext.GradeDetails
-                        .Where(gradeDetail => gradeDetail.GradeDetailId == course.CourseId)
+                        .Where(gradeDetail => gradeDetail.FkCourseId == course.CourseId)
                         .Sum(gradeDetail => gradeDetail.FkGradeId);
 
                     var numberOfStudents = dbContext.GradeDetails
-                        .Count(gradeDetail => gradeDetail.GradeDetailId == course.CourseId);
+                        .Count(gradeDetail => gradeDetail.FkCourseId == course.CourseId);
 
                     // Avoid division by zero
                     var averageGrade = numberOfStudents > 0 ? (double)gradeSum / numberOfStudents : 0;

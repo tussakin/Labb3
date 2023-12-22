@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb3.Migrations
 {
     [DbContext(typeof(SchoolLabb2Context))]
-    [Migration("20231222170952_Update")]
+    [Migration("20231222172411_Update")]
     partial class Update
     {
         /// <inheritdoc />

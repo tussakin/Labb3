@@ -13,8 +13,16 @@ namespace Labb3
     {
         public static void GetClassMenu()
         {
-            Console.WriteLine("Choose what class you want to print:");
-            Console.WriteLine("1.5a\n2.5b\n3.5c\n4.5c\n5.6a\n6.6b\n7.6c\n8.7a\n9.7b\n10.7c\n11.7d\n12.8a\n13.8b\n14.8c\n15.8d\n16.9a\n17.9b\n18.9c\n19.9d\n20.9e");
+            Console.WriteLine("Classes avalable:");
+            using (var dbContext = new SchoolLabb2Context())
+            {
+                var AllClasses = dbContext.Students.Select(student => student.Class).Distinct();
+                foreach (var ClassName in AllClasses)
+                {
+                    Console.WriteLine(ClassName);
+                }
+            }
+            Console.WriteLine("Enter the name of the class you want to see:");
             string? userInput = Console.ReadLine();
 
 
@@ -22,17 +30,31 @@ namespace Labb3
                 {
                     string className = $"{userInput}";
 
-                        Student? StudentsClass = dbContext.Students.FirstOrDefault(c => c.Class == className);
+                if (ClassExists(dbContext, className))
+                {
+
+                    Student? StudentsClass = dbContext.Students.FirstOrDefault(c => c.Class == className);
 
                     if (className != null)
                     {
                         Console.WriteLine($"{StudentsClass.FirstName} {StudentsClass.LastName}");
                     }
                     else
+                    {
+                        Console.WriteLine("You need to enter a valid input.");
+                    }
+                }
+                else
                 {
-                    Console.WriteLine("You need to enter a valid input.");
+                    Console.WriteLine("We could not find that class.");
                 }
                 }
         }
+        private static bool ClassExists(SchoolLabb2Context dbContext, string className)
+        {
+            // Check if the class exists in the database
+            return dbContext.Students.Any(c => c.Class == className);
+        }
     }
+    
 }

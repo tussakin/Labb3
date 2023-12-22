@@ -11,6 +11,8 @@ public partial class GradeDetail
 
     public int? FkStudentId { get; set; }
 
+    public int? FkCourseId { get; set; }
+
     public DateTime? SetDate { get; set; }
 
     public virtual Grade? FkGrade { get; set; }

@@ -117,7 +117,9 @@ public partial class SchoolLabb2Context : DbContext
             entity.Property(e => e.GradeDetailId).HasColumnName("GradeDetailID");
             entity.Property(e => e.FkGradeId).HasColumnName("FK_GradeID");
             entity.Property(e => e.FkStudentId).HasColumnName("FK_StudentID");
+            entity.Property(e => e.FkCourseId).HasColumnName("FK_CourseID");
             entity.Property(e => e.SetDate).HasColumnType("date");
+
 
             entity.HasOne(d => d.FkGrade).WithMany(p => p.GradeDetails)
                 .HasForeignKey(d => d.FkGradeId)
