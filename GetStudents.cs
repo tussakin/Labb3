@@ -9,6 +9,10 @@ namespace Labb3
 {
     public class GetStudents
     {
+
+        //Menu for the different choices 
+        //and after that, Different methods for the different orders the students can be printed
+
         public static void GetStudentsMenu()
         {
             Console.WriteLine("Choose what you want to do:");
@@ -44,56 +48,61 @@ namespace Labb3
             }
 
         }
+
         public static void FirstNameAscending()
         {
-            using (var dbContext = new SchoolLabb2Context())
-            {
-                var students = dbContext.Students.OrderBy(Student => Student.FirstName).ToList();
+            using var dbContext = new SchoolLabb2Context();
+            var students = dbContext.Students.OrderBy(Student => Student.FirstName).ToList();
 
-                foreach (var Student in students)
-                {
-                    Console.WriteLine($"{Student.FirstName}  {Student.LastName}");
-                }
+            foreach (var Student in students)
+            {
+                Console.WriteLine($"{Student.FirstName}  {Student.LastName}");
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public static void FirstNameDecending()
         {
-            using (var dbContext = new SchoolLabb2Context())
-            {
-                var students = dbContext.Students.OrderByDescending(Student => Student.FirstName).ToList();
+            using var dbContext = new SchoolLabb2Context();
+            var students = dbContext.Students.OrderByDescending(Student => Student.FirstName).ToList();
 
-                foreach (var Student in students)
-                {
-                    Console.WriteLine($"{Student.FirstName}  {Student.LastName}");
-                }
+            foreach (var Student in students)
+            {
+                Console.WriteLine($"{Student.FirstName}  {Student.LastName}");
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public static void LastNameAscending()
         {
-            using (var dbContext = new SchoolLabb2Context())
-            {
-                var students = dbContext.Students.OrderBy(Student => Student.LastName).ToList();
+            using var dbContext = new SchoolLabb2Context();
+            var students = dbContext.Students.OrderBy(Student => Student.LastName).ToList();
 
-                foreach (var Student in students)
-                {
-                    Console.WriteLine($"{Student.LastName}  {Student.FirstName}");
-                }
+            foreach (var Student in students)
+            {
+                Console.WriteLine($"{Student.LastName}  {Student.FirstName}");
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public static void LastNameDecending() 
         {
-            using (var dbContext = new SchoolLabb2Context())
-            {
-                var students = dbContext.Students.OrderByDescending(Student => Student.LastName).ToList();
+            using var dbContext = new SchoolLabb2Context();
+            var students = dbContext.Students.OrderByDescending(Student => Student.LastName).ToList();
 
-                foreach (var Student in students)
-                {
-                    Console.WriteLine($"{Student.LastName}  {Student.FirstName}");
-                }
+            foreach (var Student in students)
+            {
+                Console.WriteLine($"{Student.LastName}  {Student.FirstName}");
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

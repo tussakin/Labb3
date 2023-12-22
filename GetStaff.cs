@@ -10,6 +10,8 @@ namespace Labb3
 {
     public class GetStaff
     {
+
+        //Gives the different alternatives in a menu
         public static void GetStaffMenu()
         {
             Console.WriteLine("Choose what you want to do:");
@@ -51,6 +53,8 @@ namespace Labb3
             }
 
         }
+
+        //Prints all staff
         public static void PrintAllStaff()
         {
             using (var dbContext = new SchoolLabb2Context())
@@ -62,8 +66,13 @@ namespace Labb3
                     Console.WriteLine($"Staff ID: {staff.StaffId}, {staff.FirstName} {staff.LastName}");
                 }
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
 
         }
+
+        //Prints all teachers
         static void PrintAllTeachers()
         {
             using var dbContext = new SchoolLabb2Context();
@@ -74,9 +83,12 @@ namespace Labb3
                 {
                     Console.WriteLine($"Teacher {teacher.FirstName} {teacher.LastName}");
                 }
-            
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
+        //Prints all principals 
         static void PrintAllPrincipals()
         {
             using var dbContext = new SchoolLabb2Context();
@@ -86,8 +98,13 @@ namespace Labb3
             {
                 Console.WriteLine($"Principal {principal.FirstName} {principal.LastName}");
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
+
+        //Prints all janitors
         static void PrintAllJanitors()
         {
             using (var dbContext = new SchoolLabb2Context())
@@ -99,7 +116,12 @@ namespace Labb3
                     Console.WriteLine($"Janitor {janitor.FirstName} {janitor.LastName}");
                 }
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
+
+        // Prints all teachers aids 
         static void PrintAllTeacherAids()
         {
             using (var dbContext = new SchoolLabb2Context())
@@ -111,8 +133,13 @@ namespace Labb3
                     Console.WriteLine($"Teachers Aid {teacherAid.FirstName} {teacherAid.LastName}");
                 }
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
+
+        //Prints all lunch staff
         static void PrintAllLunchStaff()
         {
             using (var dbContext = new SchoolLabb2Context())
@@ -124,8 +151,13 @@ namespace Labb3
                     Console.WriteLine($"Lunch Staff {lunchStaff.FirstName} {lunchStaff.LastName}");
                 }
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
+
+        // Prints all guidance councelors 
         static void PrintAllGuidanceCouncelors()
         {
             using (var dbContext = new SchoolLabb2Context())
@@ -137,6 +169,9 @@ namespace Labb3
                     Console.WriteLine($"Guidance Councelor {guidanceCouncelor.FirstName} {guidanceCouncelor.LastName}");
                 }
             }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

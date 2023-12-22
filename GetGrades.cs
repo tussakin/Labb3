@@ -10,6 +10,7 @@ namespace Labb3
 {
     internal class GetGrades
     {
+        //Gets the grades that have been issued the last 30 days
         public static void GetLastMonthsGrades()
         {
             using (var DbContext = new SchoolLabb2Context())
@@ -23,6 +24,9 @@ namespace Labb3
                 {
                     Console.WriteLine($"Grade: {GradeDetail.FkGradeId}, StudentID: {GradeDetail.FkStudentId}");
                 }
+                Console.WriteLine("Press any key to continue to the main menu...");
+                Console.ReadKey();
+                Console.Clear();
             }
   
         }

@@ -8,6 +8,8 @@ namespace Labb3
 {
     public class Menu
     {
+
+        //A menu that gives the different choices for what the program can do 
         public static void MainMenu()
         {
 

@@ -11,6 +11,7 @@ namespace Labb3
 {
     internal class GetClass
     {
+        //Menu for fetching the class. It loops through classes that exsists and then lets user write what clas they want to show
         public static void GetClassMenu()
         {
             Console.WriteLine("Classes avalable:");
@@ -26,18 +27,21 @@ namespace Labb3
             string? userInput = Console.ReadLine();
 
 
-                using (var dbContext = new SchoolLabb2Context())
-                {
-                    string className = $"{userInput}";
+            using (var dbContext = new SchoolLabb2Context())
+            {
+                string className = $"{userInput}";
 
                 if (ClassExists(dbContext, className))
                 {
 
-                    Student? StudentsClass = dbContext.Students.FirstOrDefault(c => c.Class == className);
+                    var StudentsClass = dbContext.Students.Where(c => c.Class == className).ToList();
 
                     if (className != null)
                     {
-                        Console.WriteLine($"{StudentsClass.FirstName} {StudentsClass.LastName}");
+                        foreach (var Students in StudentsClass)
+                        {
+                            Console.WriteLine($"{Students.FirstName} {Students.LastName}");
+                        }
                     }
                     else
                     {
@@ -48,13 +52,18 @@ namespace Labb3
                 {
                     Console.WriteLine("We could not find that class.");
                 }
-                }
+            }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
         }
+
+        //Checks if the class exsists 
         private static bool ClassExists(SchoolLabb2Context dbContext, string className)
         {
             // Check if the class exists in the database
             return dbContext.Students.Any(c => c.Class == className);
         }
     }
-    
+
 }

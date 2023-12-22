@@ -11,25 +11,25 @@ namespace Labb3
     { 
     public static void AverageGrades()
     {
-            using (var dbContext = new SchoolLabb2Context())
+            using var dbContext = new SchoolLabb2Context();
+            var courses = dbContext.Courses.OrderBy(course => course.CourseName).ToList();
+
+            foreach (var course in courses)
             {
-                var courses = dbContext.Courses.OrderBy(course => course.CourseName).ToList();
+                var gradeSum = dbContext.GradeDetails
+                    .Where(gradeDetail => gradeDetail.FkCourseId == course.CourseId)
+                    .Sum(gradeDetail => gradeDetail.FkGradeId);
 
-                foreach (var course in courses)
-                {
-                    var gradeSum = dbContext.GradeDetails
-                        .Where(gradeDetail => gradeDetail.FkCourseId == course.CourseId)
-                        .Sum(gradeDetail => gradeDetail.FkGradeId);
+                var numberOfStudents = dbContext.GradeDetails
+                    .Count(gradeDetail => gradeDetail.FkCourseId == course.CourseId);
 
-                    var numberOfStudents = dbContext.GradeDetails
-                        .Count(gradeDetail => gradeDetail.FkCourseId == course.CourseId);
+                var averageGrade = numberOfStudents > 0 ? (double)gradeSum / numberOfStudents : 0;
 
-                    // Avoid division by zero
-                    var averageGrade = numberOfStudents > 0 ? (double)gradeSum / numberOfStudents : 0;
-
-                    Console.WriteLine($"Course: {course.CourseName} Average grade: {averageGrade}");
-                }
+                Console.WriteLine($"Course: {course.CourseName} Average grade: {averageGrade}");
             }
-        }
+            Console.WriteLine("Press any key to continue to the main menu...");
+            Console.ReadKey();
+            Console.Clear();
+    }
 }
 }
