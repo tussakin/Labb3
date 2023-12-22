@@ -1,0 +1,327 @@
+SQL CODE
+----------------------------
+
+-- Creating a new database.
+CREATE DATABASE SchoolLabb2;
+GO
+
+-- Switching to the newly created database.
+USE SchoolLabb2;
+GO
+
+-- -----------------------------------------------------
+-- Creating the tables
+-- -----------------------------------------------------
+-- Creating the 'Professions' table.
+CREATE TABLE Professions
+(
+ProfessionID int PRIMARY KEY IDENTITY(1, 1),
+StaffRole nvarchar (50)
+);
+GO
+
+-- Creating the 'Staff' table.
+CREATE TABLE Staff
+(
+StaffID int PRIMARY KEY IDENTITY(1,1),
+ProfessionID int,
+SocialSecurityNumber bigint,
+FirstName nvarchar(50),
+LastName nvarchar(50)
+);
+GO
+
+-- Creating the 'Staff_Professions' table.
+CREATE TABLE Staff_Professions
+(
+FK_StaffID int,
+FK_ProfessionID int
+);
+GO
+
+-- Creating the 'Students' table.
+CREATE TABLE Students
+(
+StudentID int PRIMARY KEY IDENTITY(1,1),
+SocialSecurityNumber bigint,
+Class nvarchar(5),
+FirstName nvarchar(50),
+LastName nvarchar(50),
+Gender nvarchar(1)
+);
+GO
+
+-- Creating the 'Grade' table.
+CREATE TABLE Grade
+(
+GradeID int PRIMARY KEY IDENTITY(6, -1),
+Grade Char(1),
+FK_StudentID int
+);
+GO
+
+-- Creating the 'GradeDetails' table.
+CREATE TABLE GradeDetails
+(
+GradeDetailID int PRIMARY KEY IDENTITY(1, 1),
+FK_GradeID int,
+FK_StudentID int,
+FK_CourseID int,
+SetDate Date
+);
+GO
+
+-- Creating the 'Course' table.
+CREATE TABLE Course
+(
+CourseID int PRIMARY KEY IDENTITY(1,1),
+CourseName nvarchar(50),
+CourseDescription nvarchar(150)
+);
+GO
+
+-- Creating the 'Course_Teacher' table.
+CREATE TABLE Course_Teacher
+(
+FK_CourseID int,
+FK_TeacherID int
+);
+GO
+
+CREATE TABLE Enrollment
+(
+FK_StudentID int,
+FK_CourseID int,
+FK_GradeID int
+);
+
+-- -----------------------------------------------------
+-- Adding Foreign Key Constraints to various tables
+-- -----------------------------------------------------
+
+
+ALTER TABLE Staff_Professions
+ADD CONSTRAINT FK_Staff_Professions_StaffID
+FOREIGN KEY (FK_StaffID)
+REFERENCES Staff (StaffID);
+GO
+
+ALTER TABLE Staff_Professions
+ADD CONSTRAINT FK_Staff_Professions_ProfessionID
+FOREIGN KEY (FK_ProfessionID)
+REFERENCES Professions (ProfessionID);
+GO
+
+ALTER TABLE Course_Teacher
+ADD CONSTRAINT Course_Teacher_CourseID
+FOREIGN KEY (FK_CourseID)
+REFERENCES Course(CourseID);
+GO
+
+ALTER TABLE Course_Teacher
+ADD CONSTRAINT Course_Teacher_TeacherID
+FOREIGN KEY (FK_TeacherID)
+REFERENCES Staff(StaffID);
+GO
+
+ALTER TABLE Grade
+ADD CONSTRAINT Grade_StudentID
+FOREIGN KEY (FK_StudentID)
+REFERENCES Students(StudentID);
+GO
+
+ALTER TABLE GradeDetails
+ADD CONSTRAINT GradeDetails_FK_Grade
+FOREIGN KEY (FK_GradeID)
+REFERENCES Grade(GradeID);
+GO
+
+ALTER TABLE GradeDetails
+ADD CONSTRAINT GradeDetails_StudentID
+FOREIGN KEY (FK_StudentID)
+REFERENCES Students(StudentID);
+GO
+
+ALTER TABLE GradeDetails
+ADD CONSTRAINT GradeDetails_FK_CourseID
+FOREIGN KEY (FK_CourseID)
+REFERENCES Course(CourseID)
+GO
+
+ALTER TABLE Enrollment
+ADD CONSTRAINT FK_StudentID_Enrollment
+FOREIGN KEY (FK_StudentID)
+REFERENCES Students (StudentID);
+GO
+
+ALTER TABLE Enrollment
+ADD CONSTRAINT FK_CourseID_Enrollment
+FOREIGN KEY (FK_CourseID)
+REFERENCES Course (CourseID);
+GO
+
+ALTER TABLE Enrollment
+ADD CONSTRAINT FK_Grade_Enrollment
+FOREIGN KEY (FK_GradeID)
+REFERENCES Grade (GradeID);
+GO
+
+-- -----------------------------------------------------
+-- INSERT queries section
+-- -----------------------------------------------------
+-- Inserting data into the 'Professions' table.
+INSERT INTO Professions(StaffRole)
+VALUES
+('Teacher'),
+('Principal'),
+('Janitor'),
+('Teachers aid'),
+('Lunch staff'),
+('Guidance counselor');
+GO
+
+-- Inserting data into the 'Staff' table.
+INSERT INTO Staff(SocialSecurityNumber, ProfessionID, FirstName,LastName)
+VALUES
+(198101240202, 1, 'David', 'Kopperfeild'),
+(199202122319, 3, 'Link', 'Potter'),
+(198803145678, 6, 'Kim', 'Elm'),
+(197403191211, 1, 'Sarah', 'Keys'),
+(198912011923, 3,  'Theodore', 'Maplethorpe'),
+(196807311968, 4,  'Lilly', 'Days'),
+(198901235589, 1, 'Maximiliam', 'Smith'),
+(197103189905, 5, 'Lilian', 'Krown'),
+(198609158639, 2, 'Milian', 'Foxt'),
+(199910058692, 4, 'Thomas', 'Weasley'),
+(198904069356, 6, 'Linus', 'Sanders'),
+(197705063795, 6, 'Sandra', 'Monofeild'),
+(198811055692, 2,  'Teddy', 'Kish'),
+(196612035610, 1,  'Dag', 'Andromeda'),
+(198911305590, 5, 'Jonas', 'Kanix'),
+(195502094567, 2, 'Axel', 'jones'),
+(198212122345, 1, 'Samy', 'Feild'),
+(129502035567, 2, 'Kasper', 'Token'),
+(197419065903, 6, 'Lamden', 'Dox'),
+(197531079907, 2, 'Maxine', 'Mongomery'),
+(186807015693, 4,  'Ted', 'Booth'),
+(196901054986, 1,  'Alexis', 'Brennan'),
+(195511125678, 3, 'Tobias', 'Fox');
+GO
+
+-- Inserting data into the 'Students' table.
+INSERT INTO Students(SocialSecurityNumber,FirstName,LastName,Class)
+VALUES
+(201501231191, 'Millie', 'Borg', '5c'),
+(201209146901, 'John', 'Davis', '8b'),
+(201308056783, 'Alex', 'Dickenson', '7a'),
+(201111095869,  'Amanda', 'Johnson', '9e'),
+(201111095869, 'Caleb', 'Jacksson', '9a'),
+(201111095869,  'Amber', 'Alexandria', '9e'),
+(201111095869, 'Tom', 'Petersson', '5c'),
+(201111095869, 'Hugo', 'Hill', '5c'),
+(201508173456, 'Fred', 'Samsson', '5c'),
+(201201239524, 'Emil', 'koon', '8b'),
+(201305785634, 'Emily', 'Kimbley', '7a'),
+(201110135692,  'Freddy', 'Nilsen', '9e'),
+(201102246789, 'Hampus', 'Mannerstrom', '9a'),
+(201105115693,  'Sandra', 'Johnsson', '9e'),
+(201503146731, 'Gabe', 'Bish', '5c'),
+(201507083456, 'Tim', 'Miller', '5c');;
+GO
+
+-- Inserting data into the 'Grade' table.
+INSERT INTO Grade (Grade, FK_StudentID)
+VALUES
+('A', 4),
+('B', 2),
+('C', 8),
+('D', 1),
+('E', 5),
+('F', 3);
+GO
+
+-- Inserting data into the 'GradeDetails' table.
+INSERT INTO GradeDetails (FK_GradeID, FK_StudentID, FK_CourseID, SetDate)
+VALUES
+(3, 8, 1, '2023-12-07'),
+(1, 4, 3, '2023-12-02'),
+(5, 5, 1, '2023-12-03'),
+(2, 2, 4, '2023-05-23'),
+(6, 3, 2, '2023-11-20');
+GO
+
+INSERT INTO Course (CourseName, CourseDescription)
+VALUES
+('Programing 1', 'Programming at entry level'),
+('Math 2C', 'Math at high schools sencond level'), 
+('SocialStudies', 'Studies of todays socielty'), 
+('History', 'Studies of the history of everything'),
+('English101', 'First english course')
+GO
+
+INSERT INTO Enrollment(FK_StudentID, FK_CourseID, FK_GradeID)
+VALUES 
+(1,3, '2'),
+(10, 1, '1'),
+(6, 2, '3'),
+(8, 1, '1'),
+(5, 2, '5'),
+(11,4, '6'),
+(4, 3, '1'),
+(9, 1, '4'),
+(7, 3, '5')
+GO
+
+-- -----------------------------------------------------
+-- SELECT queries section
+-- -----------------------------------------------------
+-- Select Staff based on ProfessionID
+SELECT
+S.StaffID,
+S.ProfessionID,
+S.FirstName,
+S.LastName
+FROM Staff AS S
+LEFT JOIN
+Staff_Professions AS SP ON S.StaffID = SP.FK_StaffID
+LEFT JOIN
+Professions AS P ON SP.FK_ProfessionID = P.ProfessionID
+WHERE
+S.ProfessionID = 1;
+GO
+
+-- Select Students and order by LastName
+SELECT
+S.FirstName,
+S.LastName,
+S.Class
+FROM Students AS S
+ORDER BY S.LastName;
+GO
+
+-- Select Students based on class
+SELECT
+S.FirstName,
+S.LastName,
+S.Class
+FROM Students AS S
+WHERE
+S.Class = '5c';
+GO
+
+-- Select Students, Grade, and GradeDetails based on SetDate
+SELECT
+S.FirstName,
+S.LastName,
+S.StudentID,
+G.Grade,
+GD.SetDate
+FROM Students AS S
+RIGHT JOIN
+Grade AS G ON G.FK_StudentID =  S.StudentID
+RIGHT JOIN
+GradeDetails AS GD ON G.GradeID = GD.FK_GradeID
+WHERE
+GD.SetDate >= DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()) - 1, 0) AND
+GD.SetDate < GETDATE();
+GO
